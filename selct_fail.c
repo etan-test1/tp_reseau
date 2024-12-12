@@ -41,6 +41,7 @@ int main(int argc , char *argv[])
 	int max_sd;
     struct sockaddr_in address;
     char test[MAX_LEN] = "Connecter ";
+    char rcv_msg[MAX_LEN];
 
     ///////MON BAZAR
     int sockfd_as_serv, sockfd_as_cli;
@@ -173,12 +174,11 @@ int main(int argc , char *argv[])
                 //if position is empty
 				if( client_socket[i] == 0 )
                 {
+                    bzero(rcv_msg,MAX_LEN);
                     client_socket[i] = new_socket;
                     connect_cli[connect_cli_curs].sockfd = new_socket;
-                    if (connect_cli_curs == 0){connect_cli[connect_cli_curs].name = "N3";}
-                    else if (connect_cli_curs == 1){connect_cli[connect_cli_curs].name = "N4";}
-                    else{connect_cli[connect_cli_curs].name = "N5";}
-
+                    recv(new_socket,rcv_msg,MAX_LEN,0);*
+                    connect_cli[connect_cli_curs].name = rcv_msg;
                     printf("Adding to list of sockets as %d\n" , i);
 					
 					break;
@@ -194,6 +194,7 @@ int main(int argc , char *argv[])
             if (FD_ISSET( sd , &readfds)) 
             {
                 //Check if it was for closing , and also read the incoming message
+                // Je n'ai pas le temps de modifier ma list de client
                 if ((valread = read( sd , buffer, 1024)) == 0)
                 {
                     //Somebody disconnected , get his details and print

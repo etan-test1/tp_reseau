@@ -41,6 +41,7 @@ int main (int argc, char** argv)
     serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
 	if (connect(sockfd, &serv_addr, sizeof(serv_addr)) < 0) stop ("ERREUR connect()");
+    send(sockfd,"N4",MAX_LEN,0);
 
 
     while (1)
