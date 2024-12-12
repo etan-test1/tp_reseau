@@ -71,7 +71,9 @@ int main (int argc, char** argv)
 
     if (connect(sockfd_as_cli, &another_serv_addr, sizeof(another_serv_addr)) < 0) stop ("ERREUR connect()");
     {
+        printf("J'ai pas envoyé \n");
         send(sockfd_as_cli,send_msg,MAX_LEN,0);
+        printf("J'ai envoyé \n");
     }
     
     while (1)
