@@ -25,6 +25,12 @@ typedef struct cli {
     int sockfd;
 } cli;
 
+void stop(char * msg)
+{
+    perror(msg);
+    exit(EXIT_FAILURE);
+}
+
 int main(int argc , char *argv[])
 {
 
