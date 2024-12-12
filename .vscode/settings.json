@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "n2.C": "cpp"
+        "n2.C": "cpp",
+        "in.h": "c",
+        "unistd.h": "c",
+        "stdio.h": "c"
     }
 }
