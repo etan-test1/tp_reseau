@@ -15,9 +15,9 @@
  
 #define TRUE   1
 #define FALSE  0
-#define BUFFSIZE 2048
+#define MAX_LEN 2048
 #define PORT_ME 1201
-#define PORT_SVPN 1202
+#define PORT_SERV 1202
 
 typedef struct cli {
     char* name;
@@ -28,6 +28,34 @@ int main(int argc , char *argv[])
 {
     int opt = TRUE;
     int master_socket , addrlen , new_socket , client_socket[30] , max_clients = 30 , activity, i , valread , sd;
+
+    struct sockaddr_in serv_addr, cli_addr;
+    memset(&serv_addr,0,sizeof(serv_addr));
+    memset(&cli_addr,0,sizeof(cli_addr));
+    int sockfd_as_serv, sockfd_as_cli;
+    int receive=0;
+    char rcv_msg[MAX_LEN];
+    char send_msg[MAX_LEN] ="Hey Ho";
+
+    int queu_len = 5;
+
+    sockfd_as_serv = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd_as_serv == -1) {stop("ERREUR LORS DE LA CREATION DE LA SOCKET");}
+    serv_addr.sin_family = AF_INET ;
+    serv_addr.sin_port = htons(PORT_ME);
+    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+
+    struct sockaddr_in another_serv_addr;
+    memset(&another_serv_addr,0,sizeof(another_serv_addr));
+
+    sockfd_as_cli = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd_as_cli == -1) {stop("ERREUR LORS DE LA CREATION DE LA SOCKET");}
+    another_serv_addr.sin_family = AF_INET ;
+    another_serv_addr.sin_port = htons(PORT_SERV);
+    another_serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+
 	int max_sd;
     struct sockaddr_in address;
 

@@ -63,18 +63,15 @@ int main (int argc, char** argv)
     if(listen(sockfd_as_serv, queu_len) < 0) stop ("ERREUR listen()");
 
     int clilen = sizeof(cli_addr);
-    int newsockfd = accept (sockfd_as_serv,&cli_addr,&clilen);
     
-
-    if(newsockfd < 0) stop("ERREUR accept()");
-
 
     if (connect(sockfd_as_cli, &another_serv_addr, sizeof(another_serv_addr)) < 0) stop ("ERREUR connect()");
     {
-        printf("J'ai pas envoyé \n");
         send(sockfd_as_cli,send_msg,MAX_LEN,0);
-        printf("J'ai envoyé \n");
     }
+
+    int newsockfd = accept (sockfd_as_serv,&cli_addr,&clilen);
+    if(newsockfd < 0) stop("ERREUR accept()");
     
     while (1)
     {
