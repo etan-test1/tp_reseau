@@ -90,7 +90,7 @@ int main(void){
     char* reponse = "entendu";
     while(1){
         //Attend recept message
-        printf("attend la réception d'un message\n");
+        printf("attend la réception d'un message udp\n");
         n = recvfrom(sockfd, (char*)buffer, MAXLINE,
         MSG_WAITALL,(struct sockaddr *)&clientudpaddr,&len);
         //Affiche message reçu
