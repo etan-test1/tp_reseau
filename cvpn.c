@@ -34,7 +34,7 @@ int main (int argc, char** argv)
     int sockfd_as_serv, sockfd_as_cli;
     int receive=0;
     char rcv_msg[MAX_LEN];
-    char send_msg[MAX_LEN];
+    char send_msg[MAX_LEN] ="Hey Ho";
 
     int queu_len = 5;
 
@@ -68,6 +68,12 @@ int main (int argc, char** argv)
 
     if(newsockfd < 0) stop("ERREUR accept()");
 
+
+    if (connect(sockfd_as_cli, &another_serv_addr, sizeof(another_serv_addr)) < 0) stop ("ERREUR connect()");
+    {
+        send(sockfd_as_cli,send_msg,MAX_LEN,0);
+    }
+    
     while (1)
     {
         bzero(&rcv_msg,MAX_LEN);

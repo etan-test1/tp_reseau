@@ -31,7 +31,7 @@ int main (int argc, char** argv)
     int sockfd,n;
     int receive=0;
     char rcv_msg[MAX_LEN];
-    char send_msg[MAX_LEN];
+    char send_msg[MAX_LEN] = "test";
 
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -45,6 +45,7 @@ int main (int argc, char** argv)
 
     while (1)
     {
+        n = send(sockfd,send_msg,MAX_LEN,0);
         n = recv(sockfd,rcv_msg,MAX_LEN,0);
         //rcv_msg[MAX_LEN-1] = "\0";
         
