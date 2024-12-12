@@ -1,4 +1,4 @@
-//n1.c aka UDPSERVER.C
+//n1.c
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -17,6 +17,9 @@ int main(void){
 
     printf("je suis N1, j'écouterai sur 1204\n");
     
+    //Fichier associé à N1
+    char* file_name = "info1.txt";
+
     //Socket UDP IPv4
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if(sockfd<0){
