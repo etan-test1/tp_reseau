@@ -16,8 +16,9 @@
 #define TRUE   1
 #define FALSE  0
 #define MAX_LEN 2048
+
 #define PORT_ME 1201
-#define PORT_SERV 1202
+#define PORT_SVPN 1202
 
 typedef struct cli {
     char* name;
@@ -26,25 +27,17 @@ typedef struct cli {
 
 int main(int argc , char *argv[])
 {
+
+    
+
     int opt = TRUE;
     int master_socket , addrlen , new_socket , client_socket[30] , max_clients = 30 , activity, i , valread , sd;
+	int max_sd;
+    struct sockaddr_in address;
+    char test[MAX_LEN] = "Connecter ";
 
-    struct sockaddr_in serv_addr, cli_addr;
-    memset(&serv_addr,0,sizeof(serv_addr));
-    memset(&cli_addr,0,sizeof(cli_addr));
+    ///////MON BAZAR
     int sockfd_as_serv, sockfd_as_cli;
-    int receive=0;
-    char rcv_msg[MAX_LEN];
-    char send_msg[MAX_LEN] ="Hey Ho";
-
-    int queu_len = 5;
-
-    sockfd_as_serv = socket(AF_INET, SOCK_STREAM, 0);
-    if (sockfd_as_serv == -1) {stop("ERREUR LORS DE LA CREATION DE LA SOCKET");}
-    serv_addr.sin_family = AF_INET ;
-    serv_addr.sin_port = htons(PORT_ME);
-    serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-
 
     struct sockaddr_in another_serv_addr;
     memset(&another_serv_addr,0,sizeof(another_serv_addr));
@@ -52,17 +45,19 @@ int main(int argc , char *argv[])
     sockfd_as_cli = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd_as_cli == -1) {stop("ERREUR LORS DE LA CREATION DE LA SOCKET");}
     another_serv_addr.sin_family = AF_INET ;
-    another_serv_addr.sin_port = htons(PORT_SERV);
+    another_serv_addr.sin_port = htons(PORT_SVPN);
     another_serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    if (connect(sockfd_as_cli, &another_serv_addr, sizeof(another_serv_addr)) < 0) stop ("ERREUR connect()");
+    {
+        send(sockfd_as_cli,test,MAX_LEN,0);
+    }
 
-
-	int max_sd;
-    struct sockaddr_in address;
+    ///////MON BAZAR
 
     cli connect_cli[3];
     int connect_cli_curs = 0;
      
-    char buffer[1025];  //data buffer of 1K
+    char buffer[MAX_LEN];  //data buffer of 1K
      
     //set of socket descriptors
     fd_set readfds;
@@ -208,7 +203,6 @@ int main(int argc , char *argv[])
                 else
                 {
                     //set the string terminating NULL byte on the end of the data read
-                    if ()
                     buffer[valread] = '\0';
                     send(sd , buffer , strlen(buffer) , 0 );
                 }
