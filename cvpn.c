@@ -73,6 +73,7 @@ int main (int argc, char** argv)
         bzero(&rcv_msg,MAX_LEN);
         int n = recv(newsockfd,rcv_msg,MAX_LEN,0);
         if (n<0) stop("ERREUR recv()");
+        /*
         if (rcv_msg[0] == "N" && (rcv_msg[1] == "1" || rcv_msg[1] == "2" || rcv_msg[1]=="3" || rcv_msg[1]=="4") && strlen(rcv_msg)==2)
         {
             if (connect(sockfd_as_cli, &another_serv_addr, sizeof(another_serv_addr)) < 0) stop ("ERREUR connect()");
@@ -83,10 +84,11 @@ int main (int argc, char** argv)
 
         else if (rcv_msg[0] =="F" && rcv_msg[1]=="F" && rcv_msg[2]=="F" && strlen(rcv_msg)==3) //Début de transfert fichier
         {
-            
+
         }
         else
         {}
+        */
         printf("Message reçu : %s\n",rcv_msg);
         //n = send(newsockfd,send_msg,MAX_LEN,0);
         //if (n<0) stop("ERREUR send()");
