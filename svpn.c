@@ -13,10 +13,6 @@ void stop(char* message){
     exit(EXIT_FAILURE);
 }
 
-void ajouter_client(){
-
-}
-
 int main(void){
 
     printf("je suis SVPN, j'écouterai l'UDP sur 1203, le TCP sur 1202\n");
@@ -39,6 +35,7 @@ int main(void){
 	{stop("inet_aton failed");}
     //Informations des clients / Liste de max 3 clients udp
     listeclients=(struct sockaddr_in*)malloc(sizeof(struct sockaddr_in)*3);
+    int nbclients = 0;
 
     //Association socket adresse avec bind()
     if(bind(sockfd,(const struct sockaddr *)&svpnaddr,sizeof(svpnaddr))<0){
@@ -54,7 +51,7 @@ int main(void){
         stop("socket creation failed");
     }
     else{printf("socket tcp creation success\n");}
-    //Structure d'adresse pour 127.0.0.1 port 1234
+    //Structure d'adresse pour 127.0.0.1 port 1202
     struct sockaddr_in svpntcpaddr, cvpnaddr;
     memset(&svpntcpaddr, 0, sizeof(svpntcpaddr));
     memset(&cvpnaddr, 0, sizeof(cvpnaddr));
@@ -85,7 +82,7 @@ int main(void){
 
 
     //BOUCLE INFINIE
-    int n, len; int MAXLINE = 1024;
+    int n, len; int MAXLINE = 1024; int i,check;
     char buffer[MAXLINE];
     char* reponse = "entendu";
     while(1){
@@ -96,8 +93,9 @@ int main(void){
         //Affiche message reçu
         buffer[n]='\0';
         printf("A client said : %s\n",buffer);
-        //Ajout du client à la liste
-        
+        //Ajout du client à la liste :
+            //Recherche du client dans la liste
+            //Ajout si hors de la liste
         //Réponse au client
         sendto(sockfd, (const char *)reponse, strlen(reponse), MSG_CONFIRM,
         (const struct sockaddr *)&clientudpaddr, len);

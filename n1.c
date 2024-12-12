@@ -42,7 +42,7 @@ int main(void){
 */
     //Envoie un message au SVPN pour se faire connaître
     int len;
-    char *hello = "Je suis N1";
+    char *hello = "je suis N1, j'écouterai sur 1204";
     if(sendto(sockfd, (const char *)hello, strlen(hello), MSG_CONFIRM,
     (const struct sockaddr *)&svpnaddr, sizeof(svpnaddr))<0){stop("problème message");}
     printf("Message de départ envoyé.\n");
