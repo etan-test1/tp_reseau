@@ -2,9 +2,11 @@
 #ifndef LIB_H
 #define LIB_H
 
-typedef struct head{
+typedef struct request{
+    const char * name;
+    const char * path;
 
-}head;
+}request;
 
 int compt_char_file (char* path);
 FILE * ouverture_file (char* path,char* mode);
